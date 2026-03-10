@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - BookHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .register-content {
+            z-index: 2;
+        }
+
+        .register-content h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .register-description {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            animation: slideInLeft 0.8s ease 0.1s both;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 50px;
+        }
+
+        .benefits-list li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            animation: slideInLeft 0.8s ease 0.2s both;
+        }
+
+        .check-icon {
+            color: var(--success);
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .form-wrapper {
+            animation: slideInRight 0.8s ease;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(51, 65, 85, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(51, 65, 85, 0.15);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(248, 250, 252, 0.9);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 20px rgba(0, 153, 255, 0.15), inset 0 0 0 1px rgba(0, 153, 255, 0.1);
+        }
+
+        .form-group input.error {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .form-group input.error:focus {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.15), inset 0 0 0 1px rgba(239, 68, 68, 0.1);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.8rem;
+            margin-top: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .password-requirements {
+            background: rgba(0, 153, 255, 0.05);
+            border: 1px solid rgba(0, 153, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        .requirement {
+            display: flex;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .requirement-marker {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-tertiary);
+            flex-shrink: 0;
+            margin-top: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .requirement.met .requirement-marker {
+            background: var(--success);
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 153, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .register-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 153, 255, 0.4);
+        }
+
+        .register-button:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .register-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(51, 65, 85, 0.1);
+        }
+
+        .form-footer p {
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .form-footer a:hover::after {
+            width: 100%;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            margin-bottom: 20px;
+            display: none;
+            animation: slideInDown 0.3s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .register-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .register-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .form-card {
+                padding: 40px 30px;
+            }
+
+            .register-content {
+                text-align: center;
+            }
+
+            .benefits-list li {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-wrapper {
+                padding-top: 40px;
+            }
+
+            .form-card {
+                padding: 30px 20px;
+            }
+
+            .form-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .register-content h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 BookHub</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </header>
+
+        <main class="register-container">
+            <div class="register-wrapper">
+                <!-- Left Side - Content -->
+                <div class="register-content">
+                    <h1>Join Our Reading Community</h1>
+                    <p class="register-description">Create your account today and start exploring thousands of amazing books. It only takes a minute!</p>
+                    
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span class="benefit-text"><strong>Instant Access</strong> to our entire book collection</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span class="benefit-text"><strong>Easy Borrowing</strong> with just one click</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span class="benefit-text"><strong>Track Your History</strong> and manage books</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span class="benefit-text"><strong>Completely Free</strong> - No hidden charges</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span class="benefit-text"><strong>Secure Account</strong> with encrypted passwords</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right Side - Form -->
+                <div class="form-wrapper">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h2>Create Account</h2>
+                            <p>Get started in seconds</p>
+                        </div>
+
+                        <div class="success-message" id="successMessage">
+                            ✨ Account created successfully! Redirecting to login...
+                        </div>
+
+                        <form id="registerForm" novalidate>
+                            <!-- Username Field -->
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    name="username" 
+                                    placeholder="Choose your username"
+                                    required
+                                    autocomplete="username"
+                                >
+                                <div class="error-message" id="usernameError"></div>
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="Create a strong password"
+                                    required
+                                    autocomplete="new-password"
+                                >
+                                <div class="error-message" id="passwordError"></div>
+
+                                <div class="password-requirements">
+                                    <div class="requirement" id="req-length">
+                                        <span class="requirement-marker"></span>
+                                        <span>At least 6 characters</span>
+                                    </div>
+                                    <div class="requirement" id="req-char">
+                                        <span class="requirement-marker"></span>
+                                        <span>Letters and numbers (optional)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password Field -->
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    name="confirmPassword" 
+                                    placeholder="Re-enter your password"
+                                    required
+                                    autocomplete="new-password"
+                                >
+                                <div class="error-message" id="confirmPasswordError"></div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="register-button" id="registerBtn">
+                                Create My Account
+                            </button>
+                        </form>
+
+                        <!-- Footer -->
+                        <div class="form-footer">
+                            <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>✨ BookHub © 2026 - Your Gateway to Endless Stories</p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Password strength indicator (runs on all register pages)
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            if (!passwordInput) return;
+            
+            const reqLength = document.getElementById('req-length');
+            const reqChar = document.getElementById('req-char');
+
+            passwordInput.addEventListener('input', function() {
+                // Check length
+                if (this.value.length >= 6) {
+                    reqLength.classList.add('met');
+                } else {
+                    reqLength.classList.remove('met');
+                }
+
+                // Check for characters
+                if (/[a-zA-Z0-9]/.test(this.value)) {
+                    reqChar.classList.add('met');
+                } else {
+                    reqChar.classList.remove('met');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
