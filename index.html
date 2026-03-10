@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Book Lending System - Share Your Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero-background {
+            position: relative;
+            padding: 80px 0;
+        }
+
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 153, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tagline {
+            display: inline-block;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, rgba(0, 153, 255, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border-radius: 30px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 153, 255, 0.2);
+            animation: slideInDown 0.8s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInDown 0.8s ease 0.1s both;
+        }
+
+        .hero-description {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 50px;
+            animation: slideInUp 0.8s ease 0.2s both;
+        }
+
+        .cta-section {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+            animation: slideInUp 0.8s ease 0.3s both;
+        }
+
+        .btn-large {
+            padding: 18px 48px;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+        }
+
+        .feature-item {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(51, 65, 85, 0.1);
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: slideInUp 0.8s ease;
+        }
+
+        .feature-item:nth-child(1) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-item:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .feature-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 153, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 153, 255, 0.1);
+        }
+
+        .feature-icon-large {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .feature-item h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .feature-item p {
+            color: var(--text-tertiary);
+            line-height: 1.8;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .stat-box {
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(51, 65, 85, 0.1);
+            animation: slideInUp 0.8s ease;
+        }
+
+        .stat-box:nth-child(1) {
+            animation-delay: 0.4s;
+        }
+
+        .stat-box:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .stat-box:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .cta-section-bottom {
+            text-align: center;
+            padding: 60px 30px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            border: 2px solid rgba(0, 153, 255, 0.2);
+            margin-top: 80px;
+            animation: slideInUp 0.8s ease 0.4s both;
+        }
+
+        .cta-section-bottom h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-section-bottom p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .separator {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 1rem;
+            margin: 0 15px;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .cta-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cta-section-bottom h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 BookHub</h1>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </header>
+        
+        <main>
+            <div class="hero-background">
+                <div class="hero-content">
+                    <div class="tagline">🌟 Your Personal Digital Library</div>
+                    
+                    <h2 class="hero-title">Share Your Passion for Reading</h2>
+                    
+                    <p class="hero-description">Discover, borrow, and share books from our ever-growing collection. Connect with book lovers worldwide and explore thousands of titles all in one place.</p>
+                    
+                    <div class="cta-section">
+                        <a href="register.html" class="btn btn-primary btn-large">
+                            Create Account
+                        </a>
+                        <a href="login.html" class="btn btn-secondary btn-large">
+                            Already have an account? Sign In
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div id="features" style="margin-top: 80px;">
+                <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Why Choose BookHub?</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon-large">📚</div>
+                        <h3>Vast Collection</h3>
+                        <p>Access thousands of books across multiple categories including Fiction, IT, Business, and more. Find your next favorite read today.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon-large">⚡</div>
+                        <h3>Instant Access</h3>
+                        <p>Borrow books instantly and start reading right away. Manage your borrowing history and track return dates effortlessly.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon-large">🔒</div>
+                        <h3>Secure & Safe</h3>
+                        <p>Your account and data are protected with advanced encryption. Enjoy peace of mind while managing your book collection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section" style="margin-top: 80px;">
+                <div class="stat-box">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Books Available</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free Service</div>
+                </div>
+            </div>
+
+            <!-- Testimonial Section -->
+            <div id="about" style="margin-top: 80px; text-align: center;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 40px; color: var(--text-primary);">About BookHub</h2>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.8;">
+                    BookHub is a modern online library platform designed to make book lending simple and enjoyable. Whether you're a casual reader or a book enthusiast, we provide an easy way to discover and share amazing books with a community of like-minded readers.
+                </p>
+            </div>
+
+            <!-- Final CTA Section -->
+            <div class="cta-section-bottom">
+                <h2>Ready to Start Your Reading Journey?</h2>
+                <p>Join thousands of happy readers and gain access to our entire book collection</p>
+                <div class="btn-group">
+                    <a href="register.html" class="btn btn-primary btn-large">Create Free Account</a>
+                    <span class="separator">or</span>
+                    <a href="login.html" class="btn btn-secondary btn-large">Sign In</a>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>✨ BookHub © 2026 - Your Gateway to Endless Stories</p>
+        </footer>
+    </div>
+</body>
+</html>
+
